@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from 'src/app/product.service';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product';
-import { DataTableResource, DataTable } from 'angular7-data-table';
+import { DataTableResource } from 'angular7-data-table';
 @Component({
   selector: 'app-admin-products',
   templateUrl: './admin-products.component.html',
