@@ -1,4 +1,4 @@
-export interface IProduct {
+export interface Product {
     key: string,
     category: string, 
     imageUrl: string, 
