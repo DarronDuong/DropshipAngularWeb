@@ -3,6 +3,7 @@ import { CategoryService } from 'src/app/category.service';
 import { ProductService } from 'src/app/product.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators'; // this operator is to take the value then automatically unsubscribe the observable (no need for explicitly unsubscription)
+import { IProduct } from 'src/app/models/product';
 
 @Component({
   selector: 'app-product-form',
@@ -12,26 +13,36 @@ import { take } from 'rxjs/operators'; // this operator is to take the value the
 export class ProductFormComponent implements OnInit {
 
   categories$; 
-  product;
+  id;
+
+  product = { 
+    title: "",
+    price: 0,
+    category : "",
+    imageUrl: ""
+  }; 
 
   constructor(private categoryService: CategoryService, 
               private productService: ProductService, 
               private router: Router,
               private route: ActivatedRoute) { 
-                
+    
     this.categories$ = this.categoryService.getCategory();
-    let id = this.route.snapshot.paramMap.get('id');
+    
+    this.id = this.route.snapshot.paramMap.get('id');
 
-    if (id) this.productService.get(id).pipe(take(1))
-    .subscribe(p => {
-      debugger;
-      this.product = p;
+    if (this.id) this.productService.get(this.id).subscribe((x: IProduct) => {
+      this.product = x 
     })
   }
 
   save(product){
-    this.productService.create(product);
+
+    if (this.id) this.productService.update(this.id, product);
+    else this.productService.create(product);
+    
     this.router.navigate(['/admin/products'])
+
   }
 
   ngOnInit() {
