@@ -5,6 +5,9 @@
       <p class="card-text">{{ product.price | currency:'AUD': true}}</p>
     </div>
     <div class="card-footer" *ngIf="showActions">
-      <a href="#" class="btn btn-primary btn-block">Add to Cart</a>
+      <button  
+          class="btn btn-primary btn-block"
+          (click)="addToCart(product)">Add to Cart</button>
+          <div>{{ getQuantity() }}</div>
     </div>
   </div>
