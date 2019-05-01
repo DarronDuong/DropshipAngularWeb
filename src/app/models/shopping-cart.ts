@@ -1,5 +1,6 @@
 import { ShoppingCartItem } from './shopping-cart-item';
 import { TouchSequence } from 'selenium-webdriver';
+import { Product } from './product';
 
 export class ShoppingCart {
 
@@ -23,9 +24,13 @@ export class ShoppingCart {
     get totalPrice() {
         let sum = 0;
         for (let productId in this.items)
-            sum += this.items[productId].totalPrice;
+            sum += (this.items[productId] as ShoppingCartItem).totalPrice;
 
         return sum;
     }
 
+    getQuantity(product: Product) {     
+        let item = this.items[product.key];
+        return item ? item.quantity : 0;
+      }
 }

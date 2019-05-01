@@ -10,7 +10,7 @@
       <tr>
         <th>Product</th>
         <th>Quantity</th>
-        <th></th>
+        <th>Price</th>
       </tr>
     </thead>
     <tbody>
@@ -19,7 +19,7 @@
           {{ item.product.title }}
         </td>
         <td>
-          {{ item.quantity }}
+          <product-quantity [product]="item.product" [shopping-cart]="cart"></product-quantity>
         </td>
         <td>
           {{ item.totalPrice | currency:'AUD':true }}
