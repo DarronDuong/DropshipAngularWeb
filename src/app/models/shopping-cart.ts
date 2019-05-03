@@ -7,9 +7,14 @@ export class ShoppingCart {
     itemList: ShoppingCartItem[] = [];
 
     constructor(public items: { [key: string]: ShoppingCartItem }) {
+        this.items = items || { };
         for (let productId in items){
             let item = items[productId];
-            this.itemList.push(new ShoppingCartItem(item.product, item.quantity));
+            let x = new ShoppingCartItem();
+            Object.assign(x, item);
+            x.key = productId;
+            debugger;
+            this.itemList.push(x);
         }
     }
 
