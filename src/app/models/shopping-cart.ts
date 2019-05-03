@@ -10,11 +10,10 @@ export class ShoppingCart {
         this.items = items || { };
         for (let productId in items){
             let item = items[productId];
-            let x = new ShoppingCartItem();
-            Object.assign(x, item);
-            x.key = productId;
-            debugger;
-            this.itemList.push(x);
+         
+            this.itemList.push(new ShoppingCartItem({
+                 ...item, //spread operator (iterate thru item property and assign)
+                key: productId }));
         }
     }
 
