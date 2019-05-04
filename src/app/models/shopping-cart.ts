@@ -25,7 +25,6 @@ export class ShoppingCart {
     }
 
     get totalPrice() {
-        debugger;
         let sum = 0;
         for (let productId in this.itemList)
             sum += this.itemList[productId].totalPrice;
