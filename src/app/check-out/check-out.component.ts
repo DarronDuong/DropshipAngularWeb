@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ShoppingCartService } from '../shopping-cart.service';
 import { ShoppingCart } from '../models/shopping-cart';
 import { Subscription } from 'rxjs';
+import { OrderService } from '../order.service';
 
 @Component({
   selector: 'app-check-out',
@@ -13,7 +14,8 @@ export class CheckOutComponent implements OnInit, OnDestroy {
   cart : ShoppingCart;
   subscription: Subscription;
 
-  constructor(private shoppingCartService: ShoppingCartService){ }
+  constructor(private shoppingCartService: ShoppingCartService,
+              private orderService: OrderService){ }
 
   async ngOnInit() {
     let cart$ = await this.shoppingCartService.getCart();
@@ -29,11 +31,17 @@ export class CheckOutComponent implements OnInit, OnDestroy {
       items: this.cart.itemList.map(i => {
         return {
           product: {
-            
-          }
+            title: i.title,
+            imageUrl: i.imageUrl,
+            price: i.price
+          },
+          quantity: i.quantity,
+          totalPrice: i.totalPrice
         }
       })
     }
+
+    this.orderService.storeOrder(order);
   }    
 
   ngOnDestroy(){
